@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta name="description" content="Derivador rápido de candidatos desde AT Operalia Coslada a otras ofertas de reparto en Madrid.">
+  <title>AT Operalia Coslada · Derivador rápido</title>
+  <style>
+:root {
+  color-scheme: dark;
+  --bg: #0b0b0c;
+  --surface: #121316;
+  --surface-soft: #18191d;
+  --border: #2c2f36;
+  --border-strong: #454952;
+  --text: #ffffff;
+  --muted: #c8cbd1;
+  --accent: #d7263d;
+  --accent-soft: #241217;
+  --warning: #ffd37a;
+  --warning-bg: #261d0f;
+  --shadow: 0 18px 42px rgba(0,0,0,.34);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; }
+button:focus-visible { outline: 3px solid #ff4d5f; outline-offset: 3px; }
+h1,h2,h3,p { margin-top: 0; }
+.wrap { width: min(1100px, 100%); margin: 0 auto; padding: 0 28px; }
+.topbar { background: #101114; border-bottom: 1px solid var(--border); }
+.topbar-inner { min-height: 76px; display: flex; gap: 18px; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; }
+.brand-text { font-size: 14px; font-weight: 750; letter-spacing: -.02em; }
+.brand-text small { display: block; margin-top: 1px; font-size: 10px; font-weight: 600; letter-spacing: .12em; color: var(--muted); }
+.top-actions { display: flex; gap: 9px; }
+.ghost { border: 1px solid var(--border); background: #15161a; border-radius: 9px; padding: 9px 13px; font-size: 12px; font-weight: 650; cursor: pointer; transition: background .18s,border-color .18s, color .18s; }
+.ghost:hover { background: #1d1f24; border-color: #5a1f28; color: #fff; }
+.ghost[hidden] { display: none; }
+.app { padding-top: 47px; padding-bottom: 74px; min-height: calc(100vh - 151px); }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; color: #ff5c6d; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: #ff4d5f; }
+.intro h1 { margin: 15px 0 14px; max-width: 830px; font-size: clamp(32px, 4.6vw, 52px); font-weight: 750; line-height: 1.13; letter-spacing: -.05em; }
+.intro h1 .accent { color: #ff4d5f; }
+.intro p { max-width: 720px; font-size: 15px; color: var(--muted); margin-bottom: 29px; }
+.offer-feature { background: linear-gradient(180deg, #141519 0%, #101114 100%); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: 17px; padding: 28px 31px 27px; box-shadow: var(--shadow); }
+.offer-header { display: flex; align-items: flex-start; gap: 12px; justify-content: space-between; flex-wrap: wrap; }
+.offer-header h2 { font-size: clamp(23px, 3vw, 31px); letter-spacing: -.04em; font-weight: 750; margin: 6px 0 4px; }
+.offer-header p { font-size: 13px; color: var(--muted); margin: 0; }
+.priority { color: #fff; background: #7a1321; border: 1px solid #a62033; padding: 7px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.offer-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin: 26px 0 20px; }
+.stat { border: 1px solid var(--border); background: #17191d; border-radius: 11px; padding: 17px 15px; min-width: 0; }
+.stat-label { display: block; color: var(--muted); font-size: 11px; font-weight: 650; margin-bottom: 9px; }
+.stat-value { display: block; font-size: clamp(17px, 2.1vw, 23px); line-height: 1.15; letter-spacing: -.035em; font-weight: 750; }
+.stat-detail { display: block; color: var(--muted); font-size: 11px; margin-top: 8px; }
+.requirements { display: flex; gap: 8px; flex-wrap: wrap; }
+.req { padding: 8px 11px; background: #231217; border: 1px solid #5f1f29; border-radius: 7px; color: #fff; font-size: 12px; font-weight: 600; }
+.feature-foot { border-top: 1px solid #23252a; padding-top: 17px; margin: 21px 0 0; color: var(--muted); font-size: 12px; }
+.section-header { margin: 40px 0 17px; }
+.section-header h2 { font-size: clamp(21px, 3vw, 27px); letter-spacing: -.035em; font-weight: 730; margin-bottom: 5px; }
+.section-header p { margin: 0; color: var(--muted); font-size: 13px; }
+.reason-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.reason-card,.choice { text-align: left; cursor: pointer; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 13px; transition: border-color .16s,box-shadow .16s, transform .16s; }
+.reason-card:hover,.choice:hover { border-color: #a62033; box-shadow: 0 14px 28px rgba(0,0,0,.28); transform: translateY(-2px); }
+.reason-card { min-height: 200px; display: flex; flex-direction: column; align-items: flex-start; padding: 21px 21px 18px; }
+.reason-icon { color: #fff; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 9px; border: 1px solid #5f1f29; background: #231217; font-size: 13px; font-weight: 750; margin-bottom: 16px; }
+.reason-title { font-size: 16px; font-weight: 740; line-height: 1.32; letter-spacing: -.018em; }
+.reason-desc { font-size: 12px; color: var(--muted); margin-top: 7px; line-height: 1.55; }
+.reason-link { margin-top: auto; padding-top: 16px; font-size: 12px; font-weight: 750; color: var(--accent); }
+.footnote { font-size: 11px; color: var(--muted); margin-top: 23px; }
+.crumb { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; font-size: 12px; color: var(--muted); margin-bottom: 22px; }
+.crumb button { border: none; background: transparent; cursor: pointer; padding: 0; font-weight: 680; color: var(--accent); }
+.crumb .arrow { opacity: .55; }
+.question-shell { max-width: 950px; }
+.question-shell .intro h1 { font-size: clamp(29px,4vw,46px); }
+.subhead { max-width: 690px; color: var(--muted); font-size: 14px; margin-bottom: 25px; }
+.choice-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.choice { display: grid; grid-template-columns: 43px 1fr 20px; align-items: center; gap: 15px; padding: 19px; min-height: 112px; }
+.choice-icon { width: 43px; height: 43px; border-radius: 9px; background: var(--surface-soft); border: 1px solid var(--border); display: grid; place-items: center; font-size: 20px; color: var(--accent); }
+.choice-title { display: block; font-size: 15px; font-weight: 740; line-height: 1.3; }
+.choice-desc { display: block; color: var(--muted); font-size: 12px; margin-top: 5px; }
+.choice-arr { font-size: 20px; color: var(--accent); }
+.help-bar { background: #16181c; border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; margin-top: 19px; color: var(--muted); font-size: 12px; }
+.help-bar strong { color: var(--text); }
+.results-page { max-width: 990px; }
+.results-intro { margin-bottom: 23px; }
+.results-intro h1 { font-size: clamp(29px,4vw,44px); font-weight: 750; letter-spacing: -.045em; margin: 12px 0; }
+.results-intro h1 .accent { color: var(--accent); }
+.results-intro p { max-width: 760px; font-size: 13px; color: var(--muted); margin: 0 0 13px; }
+.count { display: inline-flex; padding: 6px 10px; color: #fff; background: #231217; border: 1px solid #5f1f29; border-radius: 7px; font-size: 12px; font-weight: 700; }
+.warning-banner { padding: 15px 17px; color: var(--warning); background: #201810; border: 1px solid #5f4521; border-radius: 10px; font-size: 13px; line-height: 1.55; margin-bottom: 18px; }
+.warning-banner strong { color: #ffe2a3; }
+.offer-list { display: flex; flex-direction: column; gap: 13px; }
+.job { background: #14161a; border: 1px solid var(--border); border-radius: 13px; padding: 23px 25px; box-shadow: 0 12px 24px rgba(0,0,0,.26); }
+.job:first-child { border-color: #a62033; }
+.job-upper { display: flex; align-items: flex-start; justify-content: space-between; gap: 13px; flex-wrap: wrap; }
+.job-label { display: inline-flex; color: var(--accent); text-transform: uppercase; letter-spacing: .095em; font-size: 10px; font-weight: 750; }
+.job h3 { font-size: 21px; font-weight: 750; letter-spacing: -.025em; margin: 7px 0 4px; }
+.job-location { font-size: 12px; color: var(--muted); }
+.job-time { padding: 9px 11px; border-radius: 8px; background: #231217; color: #fff; border: 1px solid #5f1f29; font-size: 13px; font-weight: 740; white-space: nowrap; }
+.pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 14px; }
+.pill { background: #17191d; border: 1px solid var(--border); color: #f4f4f5; padding: 6px 9px; border-radius: 7px; font-size: 11px; font-weight: 650; }
+.pill.action { background: #231217; border-color: #5f1f29; color: #fff; }
+.job-main { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px 18px; padding: 15px 0; border-top: 1px solid #23252a; border-bottom: 1px solid #23252a; }
+.job-main div { color: var(--muted); font-size: 12px; }
+.job-main b { color: #ffffff; font-weight: 750; }
+.job-note { font-size: 12px; color: var(--muted); margin: 14px 0 0; }
+.job-note.review { color: var(--warning); }
+.empty { border: 1px solid #5f4521; background: #1a140d; border-radius: 13px; padding: 25px; margin-bottom: 18px; }
+.empty h2 { font-size: 21px; font-weight: 750; margin-bottom: 8px; }
+.empty p { font-size: 13px; color: #e7d5b0; max-width: 750px; }
+.cta-row { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 23px; }
+.btn { border: 1px solid transparent; border-radius: 9px; font-size: 13px; font-weight: 700; padding: 11px 17px; cursor: pointer; transition: background .15s; }
+.btn-main { background: var(--accent); color: #fff; }
+.btn-main:hover { background: #c21f35; }
+.btn-outline { background: #15161a; border-color: var(--border); color: var(--text); }
+.btn-outline:hover { background: #1d1f24; }
+.more-count { opacity: .7; margin-left: 5px; }
+.disclaimer { font-size: 11px; color: var(--muted); line-height: 1.55; margin-top: 23px; }
+.bottom { background: #101114; border-top: 1px solid var(--border); padding: 21px 0 24px; color: var(--muted); font-size: 11px; }
+.bottom-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+[hidden] { display: none !important; }
+@media (max-width: 760px) {
+  .wrap { padding: 0 18px; }
+  .topbar-inner { min-height: 68px; }
+  .app { padding-top: 27px; padding-bottom: 45px; }
+  .intro h1 { font-size: 35px; }
+  .offer-feature { padding: 21px; }
+  .offer-stats { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; margin-top: 21px; }
+  .stat { padding: 14px 12px; }
+  .reason-grid { grid-template-columns: 1fr; gap: 9px; }
+  .reason-card { display: grid; align-items: center; grid-template-columns: 42px 1fr 18px; gap: 12px; min-height: auto; padding: 17px; }
+  .reason-icon { grid-row: 1/3; grid-column: 1; margin: 0; }
+  .reason-title { grid-row: 1; grid-column: 2; font-size: 15px; }
+  .reason-desc { grid-row: 2; grid-column: 2; margin: 0; }
+  .reason-link { grid-row: 1/3; grid-column: 3; font-size: 0; padding: 0; }
+  .reason-link:after { content: '→'; font-size: 22px; }
+  .choice-grid { grid-template-columns: 1fr; }
+  .choice { min-height: 98px; padding: 16px; }
+  .job-main { grid-template-columns: 1fr; }
+  .job { padding: 20px; }
+  .job h3 { font-size: 19px; }
+}
+@media (max-width: 390px) {
+  .brand-text { font-size: 12px; }
+  .brand-text small { font-size: 9px; }
+  .top-actions { gap: 5px; }
+  .top-actions .ghost { padding: 8px 9px; font-size: 11px; }
+  .stat-value { font-size: 17px; }
+  .job-time { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+@media print {
+  body { background: #0b0b0c; }
+  .topbar, .cta-row, .crumb, .reason-grid, .bottom { display: none !important; }
+  .offer-feature, .job { box-shadow: none; border: 1px solid #ccc; }
+}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand"><div class="brand-text">RUTA REPARTO<small>DERIVADOR DE OFERTAS · MADRID</small></div></div>
+      <div class="top-actions"><button class="ghost" type="button" id="backTop" hidden>← Volver</button><button class="ghost" type="button" data-route="inicio">⌂ Inicio</button></div>
+    </div>
+  </header>
+  <main class="wrap app" id="app" aria-live="polite"></main>
+  <footer class="bottom"><div class="wrap bottom-inner"><span>Herramienta interna de orientación de candidatos</span><span>Fuente: «Empresas Última Milla.xlsx» · Condiciones y vacantes a confirmar</span></div></footer>
+  <script>
+  'use strict';
+  const reasons = {
+    horario:{title:'No me encaja el horario',label:'Horario',intro:'¿Qué disponibilidad tiene el candidato? Elige una opción y verás directamente las alternativas.',icon:'◷',choices:[
+      {id:'manana',icon:'☀',title:'Solo puedo de mañana',desc:'Turnos de mañana o parciales que terminan pronto'},
+      {id:'tarde',icon:'◕',title:'Solo puedo de tarde',desc:'Turnos que empiezan después del mediodía'},
+      {id:'parcial',icon:'◴',title:'Busco jornada parcial',desc:'18, 20, 27 o 30 horas semanales'},
+      {id:'flexible',icon:'↔',title:'Necesito horario flexible',desc:'Rutas cuyo turno se puede acordar'},
+      {id:'sinfinde',icon:'▦',title:'No puedo trabajar fines de semana',desc:'Revisar si existe alguna excepción de calendario'}
+    ]},
+    carnet:{title:'No tengo carné de coche',label:'Permiso',intro:'Para repartir en moto sí hace falta un permiso válido. Elige la situación del candidato.',icon:'▣',choices:[
+      {id:'am',icon:'◉',title:'Tengo permiso AM o A',desc:'Puedo conducir moto, pero no furgoneta'},
+      {id:'ninguno',icon:'♙',title:'No tengo ningún carné',desc:'Necesito una alternativa de reparto andando'},
+      {id:'andar',icon:'♙',title:'Prefiero repartir andando',desc:'Aunque tenga permiso, no quiero conducir'}
+    ]},
+    zona:{title:'Coslada me pilla lejos',label:'Zona',intro:'¿En qué parte de Madrid le interesa trabajar? Selecciona la zona para ver empresas y centros del Excel.',icon:'⌖',choices:[
+      {id:'centro',icon:'◎',title:'Madrid Centro',desc:'Zona Santa María de la Cabeza'},
+      {id:'norte',icon:'↑',title:'Zona Norte',desc:'Ver si existe una oferta en el norte'},
+      {id:'vicalvaro',icon:'↗',title:'Vicálvaro / Este',desc:'Centro DMA3 y alrededores del este'},
+      {id:'sanfernando',icon:'✦',title:'San Fernando / Corredor',desc:'Centro MAD4 y otras opciones del corredor'},
+      {id:'sur',icon:'↓',title:'Zona Sur',desc:'Getafe y Leganés'},
+      {id:'oeste',icon:'←',title:'Móstoles / Oeste',desc:'Centro DMA4 y alternativas en Móstoles'}
+    ]}
+  };
+  // Estas fichas proceden del Excel facilitado. La presencia de una ficha NO confirma vacantes abiertas.
+  const jobs={
+    'at-mostoles':{company:'AT OPERALIA',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'11:30–19:30',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'21 años',licence:'B, 2 años de antigüedad',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable'},
+    'delcom-manana':{company:'DELCOM',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'06:15–14:15',hours:'40 h/sem.',pay:'9,86 €/h bruto',age:'A confirmar para este centro',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable',note:'El Excel indica jornada de 40 h y un importe mensual aproximado que conviene verificar.'},
+    'delcom-tarde':{company:'DELCOM',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'14:45–22:45',hours:'40 h/sem.',pay:'9,86 €/h bruto',age:'A confirmar para este centro',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable'},
+    'delcom-mostoles':{company:'DELCOM',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'10:30–19:00',hours:'40 h/sem.',pay:'9,86 €/h bruto',age:'Mayor de 25 años',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable'},
+    'insta-san-manana':{company:'INSTAPACK',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'07:30/08:00–13:30',hours:'20 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
+    'insta-san-tarde':{company:'INSTAPACK',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'15:00–22:30',hours:'30 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
+    'insta-mostoles-manana':{company:'INSTAPACK',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'07:30/08:00–13:30',hours:'20 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
+    'insta-mostoles-tarde':{company:'INSTAPACK',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'15:00–22:30',hours:'30 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
+    'winiw-san':{company:'WINIW',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'Flexible · rutas 5–6 h',hours:'27 h/sem.',pay:'9,86 €/h bruto · aprox. 1.064 €/mes',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'El horario se puede hablar con la empresa; no está garantizado.'},
+    'winiw-centro':{company:'WINIW',place:'Madrid Centro',code:'VES7',mode:'Moto',time:'Flexible · a acordar',hours:'18 h/sem.',pay:'9,86 €/h bruto · aprox. 710 €/mes',age:'18 años (validar)',licence:'AM, A o B y 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'No precisa coche para llegar al centro de Madrid.'},
+    'winiw-andar':{company:'WINIW',place:'Vicálvaro',code:'DMA3',mode:'Andarín',time:'Aprox. 11:00–19:00',hours:'36 h/sem. (confirmar modalidad)',pay:'9,86 €/h bruto · aprox. 1.420 €/mes (confirmar)',age:'18 años (validar)',licence:'No aclarado para andarín',week:'L–D, 2 descansos rotativos',pending:true,note:'IMPORTANTE: la hoja incluye reparto andando, pero también 1 año de antigüedad del carné entre las condiciones generales. Confirmar si el puesto de andarín admite personas sin permiso y qué horario les corresponde.'},
+    'winiw-scoobic':{company:'WINIW',place:'Vicálvaro',code:'DMA3',mode:'Scoobic eléctrico',time:'10:30–fin de ruta (confirmar)',hours:'36 h/sem. (por confirmar)',pay:'9,86 €/h bruto · importe según modalidad',age:'18 años (validar)',licence:'Permiso exigido por confirmar',week:'L–D, 2 descansos rotativos',pending:true,note:'No proponer sin comprobar qué permiso y homologación exige este vehículo.'},
+    'winiw-vicalvaro-furgo':{company:'WINIW',place:'Vicálvaro',code:'DMA3',mode:'Furgoneta',time:'10:30–fin de ruta (aprox. 8 h)',hours:'36 h/sem.',pay:'9,86 €/h bruto · aprox. 1.420 €/mes',age:'18 años (validar)',licence:'B, 1 año y 8 puntos',week:'L–D, 2 descansos rotativos',note:'Horarios exactos a confirmar.'},
+    'insta-getafe':{company:'INSTAPACK',place:'Getafe',code:'DMZ4',mode:'Furgoneta',time:'Horario a confirmar',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Entrevista presencial y formación remunerada.'},
+    'insta-leganes':{company:'INSTAPACK',place:'Leganés',code:'VAD7',mode:'Furgoneta',time:'Horario a confirmar',hours:'40 h/sem. según ubicaciones',pay:'9,86 €/h bruto (centro por confirmar)',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',pending:true,note:'La hoja de ubicaciones señala 40 h; validar condiciones específicas del centro.'},
+    'nopar-san':{company:'NOPAR',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'Desde 10:00/11:00 hasta 18:00/19:00',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'21 años',licence:'B, 2 años de antigüedad',week:'L–D, 2 descansos rotativos',note:'Incorporación estimada de 15 días; se recomienda comprobar cómo llegar al centro.'},
+    'nopar-mostoles':{company:'NOPAR',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'Desde 10:00/11:00 hasta 18:00/19:00',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'21 años',licence:'B, 2 años de antigüedad',week:'L–D, 2 descansos rotativos',note:'Incorporación estimada de 15 días.'},
+    'delivery-coslada':{company:'DELIVERY TWINS',place:'Coslada',code:'DMZ2',mode:'Furgoneta',time:'10:30–18:30',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'18 años (validar)',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos'}
+  };
+  // Las primeras tres ofertas son las más relevantes. El botón «ver todas» muestra el resto sin más preguntas.
+  const matches={
+    horario:{
+      manana:['delcom-manana','insta-san-manana','insta-mostoles-manana','winiw-san','winiw-centro'],
+      tarde:['delcom-tarde','insta-san-tarde','insta-mostoles-tarde','winiw-san','winiw-centro'],
+      parcial:['insta-san-manana','insta-san-tarde','winiw-san','winiw-centro','insta-mostoles-manana','insta-mostoles-tarde'],
+      flexible:['winiw-san','winiw-centro','insta-san-manana','insta-san-tarde'],
+      sinfinde:[]
+    },
+    carnet:{am:['winiw-centro','winiw-andar'],ninguno:['winiw-andar'],andar:['winiw-andar']},
+    zona:{
+      centro:['winiw-centro'],
+      norte:[],
+      vicalvaro:['winiw-andar','winiw-vicalvaro-furgo','winiw-scoobic'],
+      sanfernando:['delcom-manana','delcom-tarde','winiw-san','insta-san-manana','insta-san-tarde','nopar-san'],
+      sur:['insta-getafe','insta-leganes'],
+      oeste:['at-mostoles','insta-mostoles-manana','insta-mostoles-tarde','delcom-mostoles','nopar-mostoles']
+    }
+  };
+  const notices={
+    horario:{sinfinde:'Según el Excel, las ofertas recogidas requieren disponibilidad de lunes a domingo con dos descansos rotativos. No hay ninguna oferta confirmada con fines de semana libres. Solo se debe derivar si la empresa confirma expresamente una excepción.'},
+    carnet:{am:'La opción de moto exige permiso AM, A o B y 1 año de antigüedad. Si no llega al año, no queda acreditado el cumplimiento del requisito.',ninguno:'La única alternativa a pie recogida es WINIW Vicálvaro. El Excel no aclara si admite candidatos sin carné; hay que confirmarlo antes de derivar.',andar:'WINIW Vicálvaro incluye la modalidad andarín. Las condiciones específicas y el requisito de carné están pendientes de confirmación.'},
+    zona:{norte:'El Excel facilitado no contiene ofertas localizadas en la zona norte de Madrid. No se puede ofrecer una vacante allí con estos datos. Puedes valorar Madrid Centro u otras zonas solo si el candidato puede desplazarse.',centro:'Para Madrid Centro, el Excel recoge reparto en moto con WINIW. Es obligatorio comprobar el permiso AM, A o B.',vicalvaro:'En Vicálvaro aparecen tres modalidades. El permiso para Scoobic y las condiciones específicas de andarín necesitan verificación.'}
+  };
+  const titles={
+    horario:{manana:'Ofertas de mañana',tarde:'Ofertas de tarde',parcial:'Opciones de jornada parcial',flexible:'Horarios que pueden acordarse',sinfinde:'Fines de semana libres'},
+    carnet:{am:'Reparto en moto o andando',ninguno:'Reparto sin ningún carné',andar:'Opciones de reparto andando'},
+    zona:{centro:'Ofertas en Madrid Centro',norte:'Zona Norte de Madrid',vicalvaro:'Ofertas en Vicálvaro',sanfernando:'Ofertas en San Fernando',sur:'Ofertas en Zona Sur',oeste:'Ofertas en Móstoles'}
+  };
+  let expanded=false;
+  const app=document.getElementById('app');
+  function go(route){expanded=false;const next='#'+route;if(location.hash===next)render();else location.hash=next;window.scrollTo({top:0,behavior:'instant'});}
+  function route(){const parts=decodeURIComponent(location.hash.slice(1)).split('/');const reason=parts[0],choice=parts[1];if(reasons[reason]){if(choice&&matches[reason]&&Object.prototype.hasOwnProperty.call(matches[reason],choice))return{type:'results',reason,choice};return{type:'question',reason};}return{type:'home'};}
+  function back(){const r=route();if(r.type==='results')go(r.reason);else go('inicio');}
+  function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function renderHome(){return `<section class="intro"><span class="eyebrow"><span class="dot"></span> OFERTA DE PARTIDA</span><h1>Primero, <span class="accent">AT Operalia Coslada.</span></h1><p>Esta es la oferta prioritaria. Si el candidato no puede aceptarla, elige el motivo y encuentra alternativas en solo dos clics.</p></section>
+    <section class="offer-feature" aria-labelledby="principal"><div class="offer-header"><div><div class="eyebrow">FURGONETA · COSLADA</div><h2 id="principal">AT Operalia · Coslada</h2><p>Reparto de paquetería · Centros DMZ2 / DMA6</p></div><span class="priority">OFERTA PRIORITARIA</span></div>
+    <div class="offer-stats"><div class="stat"><span class="stat-label">◷ Horario</span><span class="stat-value">11:30–19:30</span><span class="stat-detail">Turno habitual indicado</span></div><div class="stat"><span class="stat-label">▦ Jornada</span><span class="stat-value">38 h</span><span class="stat-detail">Semanales · lunes a domingo</span></div><div class="stat"><span class="stat-label">€ Salario bruto</span><span class="stat-value">≈ 1.560 €</span><span class="stat-detail">Mensual · 9,86 €/hora</span></div><div class="stat"><span class="stat-label">▧ Contrato</span><span class="stat-value">Mensual</span><span class="stat-detail">Renovable</span></div></div>
+    <div class="requirements"><span class="req">✓ Mínimo 21 años</span><span class="req">✓ Carné B · 2 años de antigüedad</span><span class="req">✓ 2 descansos rotativos</span><span class="req">✓ Disponibilidad de lunes a domingo</span></div><p class="feature-foot">Si cumple las condiciones, AT Operalia Coslada es la primera derivación. Antes de enviar el perfil, confirmar documentación y vacantes disponibles.</p></section>
+    <section><div class="section-header"><h2>¿Por qué no puede encajar en Coslada?</h2><p>Selecciona uno de estos <strong>3 motivos</strong>. No hace falta completar un formulario largo.</p></div>
+    <div class="reason-grid"><button class="reason-card" data-route="horario"><span class="reason-icon" aria-hidden="true">01</span><span class="reason-title">1. No tengo disponibilidad de ese horario</span><span class="reason-desc">Prefiero mañana, tarde, parcial o flexible</span><span class="reason-link">Ver horarios →</span></button><button class="reason-card" data-route="carnet"><span class="reason-icon" aria-hidden="true">02</span><span class="reason-title">2. No tengo carné de coche</span><span class="reason-desc">Alternativas de moto o reparto andando</span><span class="reason-link">Ver modalidades →</span></button><button class="reason-card" data-route="zona"><span class="reason-icon" aria-hidden="true">03</span><span class="reason-title">3. La zona me pilla lejos</span><span class="reason-desc">Madrid Centro, Norte, Vicálvaro, Sur, Oeste...</span><span class="reason-link">Elegir zona →</span></button></div></section>
+    <p class="footnote">No se comprueba disponibilidad en tiempo real. Datos proporcionados por la empresa; validar requisitos y asignación de centro antes de derivar.</p>`;}
+  function renderQuestion(key){const r=reasons[key];return `<section class="question-shell"><div class="crumb"><button data-route="inicio">Inicio</button><span class="arrow">›</span>${escapeHtml(r.label)}</div><div class="intro"><span class="eyebrow"><span class="dot"></span> UN PASO MÁS · RESULTADO DIRECTO</span><h1>${escapeHtml(r.title)}<span class="accent">.</span></h1><p class="subhead">${escapeHtml(r.intro)}</p></div><div class="choice-grid">${r.choices.map(c=>`<button class="choice" data-route="${key}/${c.id}"><span class="choice-icon" aria-hidden="true">${c.icon}</span><span><strong class="choice-title">${escapeHtml(c.title)}</strong><span class="choice-desc">${escapeHtml(c.desc)}</span></span><span class="choice-arr" aria-hidden="true">→</span></button>`).join('')}</div><div class="help-bar"><strong>Sin más pasos:</strong> pulsa una opción y verás las ofertas concretas, sus requisitos y sus horarios. Si no encaja, usa «← Volver» para cambiar de respuesta.</div><div class="cta-row"><button class="btn btn-outline" data-route="inicio">← Volver a AT Operalia Coslada</button></div></section>`;}
+  function renderCard(id,index,key,choice){const j=jobs[id];if(!j)return'';const label=index===0&&!j.pending?'Opción destacada':'Alternativa '+(index+1);const flag=j.pending?'<span class="pill" style="color:#ffdda4;border-color:#876941">⚠ Condiciones por confirmar</span>':'';return `<article class="job"><div class="job-upper"><div><div class="job-label">${escapeHtml(label)}${j.pending?' · REVISAR ANTES DE DERIVAR':''}</div><h3>${escapeHtml(j.company)}</h3><div class="job-location">⌖ ${escapeHtml(j.place)} · Centro ${escapeHtml(j.code)}</div></div><div class="job-time">◷ ${escapeHtml(j.time)}</div></div><div class="pill-row"><span class="pill action">${escapeHtml(j.mode)}</span><span class="pill">${escapeHtml(j.hours)}</span>${flag}</div><div class="job-main"><div><b>€ Retribución:</b> ${escapeHtml(j.pay)}</div><div><b>▦ Disponibilidad:</b> ${escapeHtml(j.week)}</div><div><b>▣ Carné:</b> ${escapeHtml(j.licence)}</div><div><b>♙ Edad mínima:</b> ${escapeHtml(j.age)}</div>${j.contract?`<div><b>⌁ Contrato:</b> ${escapeHtml(j.contract)}</div>`:''}</div>${j.note?`<p class="job-note ${j.pending?'review':''}">${escapeHtml(j.note)}</p>`:''}</article>`;}
+  function renderResults(key,choice){const list=matches[key][choice]||[];const n=notices[key]?.[choice];const title=titles[key][choice];const shown=expanded?list:list.slice(0,3);const empty=list.length===0;const noteRegion=empty?`<div class="empty"><h2>Sin coincidencias confirmadas en el Excel</h2><p>${escapeHtml(n||'No se han localizado ofertas que cumplan este criterio con la información proporcionada.')}</p>${key==='zona'&&choice==='norte'?'<button class="btn btn-main" data-route="zona/centro">Ver alternativa: Madrid Centro →</button>':''}</div>`:'';const banner=n&&!empty?`<div class="warning-banner"><strong>Importante antes de derivar:</strong> ${escapeHtml(n)}</div>`:'';
+    return `<section class="results-page"><div class="crumb"><button data-route="inicio">AT Operalia Coslada</button><span class="arrow">›</span><button data-route="${key}">${escapeHtml(reasons[key].label)}</button><span class="arrow">›</span> Resultado</div><div class="results-intro"><span class="eyebrow"><span class="dot"></span> ALTERNATIVAS DE DERIVACIÓN</span><h1>${escapeHtml(title)}<span class="accent">.</span></h1><p>${key==='horario'?'Opciones que pueden encajar con la disponibilidad indicada. Comprueba el carné, edad, zona y días disponibles antes de derivar.':key==='carnet'?'Solo se muestran modalidades acordes con la respuesta, sin proponer furgoneta a quien no tiene permiso B.':'Ofertas asociadas con esa zona en el Excel. Confirma el transporte al centro y los requisitos del puesto.'}</p>${!empty?`<span class="count">${list.length} ${list.length===1?'alternativa localizada':'alternativas localizadas'}</span>`:''}</div>${banner}${noteRegion}${!empty?`<div class="offer-list">${shown.map((id,i)=>renderCard(id,i,key,choice)).join('')}</div>`:''}${!empty&&!expanded&&list.length>3?`<div class="cta-row"><button class="btn btn-outline" id="showMore">Ver todas las alternativas <span class="more-count">+${list.length-3}</span> ↓</button></div>`:''}<div class="cta-row"><button class="btn btn-main" data-route="${key}">← Cambiar selección</button><button class="btn btn-outline" data-route="inicio">⌂ Volver a AT Operalia</button></div><p class="disclaimer">Orientación basada en el Excel original. No se valida disponibilidad actual, documentación ni contratación. Donde el Excel mezcla condiciones o no concreta el puesto, la ficha avisa de que debe confirmarse.</p></section>`;
+  }
+  function render(){const r=route();document.getElementById('backTop').hidden=r.type==='home';if(r.type==='home')app.innerHTML=renderHome();else if(r.type==='question')app.innerHTML=renderQuestion(r.reason);else app.innerHTML=renderResults(r.reason,r.choice);document.title=(r.type==='home'?'AT Operalia Coslada':r.type==='question'?reasons[r.reason].title:titles[r.reason][r.choice])+' · Derivador';}
+  document.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;if(btn.id==='backTop'){back();return}if(btn.id==='showMore'){expanded=true;render();return}if(btn.dataset.route)go(btn.dataset.route);});
+  window.addEventListener('hashchange',()=>{expanded=false;render();window.scrollTo({top:0,behavior:'instant'});});
+  render();
+  </script>
+</body>
+</html>
