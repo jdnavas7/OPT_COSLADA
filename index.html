@@ -1,272 +1,110 @@
 <!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0b0c">
-  <meta name="description" content="Derivador rápido de candidatos desde AT Operalia Coslada a otras ofertas de reparto en Madrid.">
-  <title>AT Operalia Coslada · Derivador rápido</title>
-  <style>
-:root {
-  color-scheme: dark;
-  --bg: #0b0b0c;
-  --surface: #121316;
-  --surface-soft: #18191d;
-  --border: #2c2f36;
-  --border-strong: #454952;
-  --text: #ffffff;
-  --muted: #c8cbd1;
-  --accent: #d7263d;
-  --accent-soft: #241217;
-  --warning: #ffd37a;
-  --warning-bg: #261d0f;
-  --shadow: 0 18px 42px rgba(0,0,0,.34);
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090b"><meta name="description" content="Derivación de candidatos de reparto para Madrid por empresa, horario, permiso y zona."><title>Derivador de reparto · Madrid</title><style>
+:root { color-scheme: dark; --bg:#09090b; --panel:#131417; --panel-2:#1a1b20; --text:#f7f7f9; --sub:#c3c3cb; --muted:#999aa6; --line:#303039; --red:#e23346; --red-soft:#29161b; --radius:16px; }
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {margin:0;background:radial-gradient(ellipse 900px 350px at 50% -100px, #251014 0%, transparent 75%),var(--bg); color:var(--text);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+a {color:inherit} button {font:inherit} button:focus-visible,summary:focus-visible {outline:2px solid #ff6573;outline-offset:4px}
+.wrap {max-width:1060px;margin:0 auto;padding:0 28px} .bar {border-bottom:1px solid var(--line);background:#101014e8;position:sticky;top:0;z-index:5;backdrop-filter:blur(15px)}
+.bar-inner{height:72px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{font-weight:820;font-size:15px;letter-spacing:-.035em}.brand small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-top:-4px}.brand .slash{color:var(--red);padding-right:5px}
+.actions{display:flex;gap:9px;align-items:center}.btn-simple{background:#1a1b20;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 13px;cursor:pointer;font-size:12px;font-weight:650}.btn-simple:hover{border-color:#9b3543}
+main{min-height:calc(100vh - 146px);padding-top:54px;padding-bottom:95px}.kicker{text-transform:uppercase;letter-spacing:.15em;color:#ff6573;font-size:11px;font-weight:800;display:flex;align-items:center;gap:9px}.kicker:before{content:'';width:7px;height:7px;background:var(--red);border-radius:50%}
+h1,h2,h3,p{margin-top:0} h1{font-size:clamp(32px,4.5vw,53px);line-height:1.14;letter-spacing:-.053em;font-weight:820;margin:14px 0 13px;max-width:810px} h1 em{color:#ff5e70;font-style:normal}.lede{color:var(--sub);max-width:725px;margin-bottom:30px;font-size:15px}.section-title{font-size:19px;font-weight:750;letter-spacing:-.03em;margin:31px 0 14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}.company-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.company-card{display:flex;flex-direction:column;min-height:164px;text-align:left;padding:20px;cursor:pointer;transition:transform .16s,border-color .16s,background .16s;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);color:var(--text)} .company-card:hover,.choice:hover,.reason-card:hover{border-color:#ae3042;background:#1a171b;transform:translateY(-2px)}
+.company-label{display:flex;align-items:center;justify-content:space-between;gap:9px;color:#ff7888;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em}.company-name{font-size:21px;letter-spacing:-.045em;font-weight:770;line-height:1.2;margin:15px 0 6px}.company-sub{color:var(--sub);font-size:12px;line-height:1.45}.company-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:15px;color:var(--muted);font-size:11px}
+.intro-nav{display:flex;align-items:center;gap:8px;margin-bottom:25px;flex-wrap:wrap;color:var(--muted);font-size:12px}.intro-nav button{background:none;border:0;color:#ff7888;padding:0;font-size:12px;cursor:pointer}.intro-nav .sep{color:#61616b}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.choice{cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:19px;background:var(--panel);border:1px solid var(--line);border-radius:13px;color:var(--text);gap:16px;transition:.16s}.choice strong{display:block;font-size:16px;font-weight:730}.choice small{display:block;color:var(--muted);font-size:12px;margin-top:3px}.arrow{color:#ff5e70;font-size:22px;flex:none}
+.feature{border:1px solid var(--line);border-top:3px solid var(--red);background:linear-gradient(160deg,#17181d,#121316);padding:28px;border-radius:17px;box-shadow:0 16px 44px #0004}.feature-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}.feature h2{font-size:clamp(23px,3vw,33px);letter-spacing:-.044em;margin:6px 0 5px}.tiny{font-size:12px;color:var(--muted)}.tag{display:inline-flex;border-radius:100px;padding:6px 10px;font-size:11px;font-weight:760;white-space:nowrap;background:var(--red-soft);border:1px solid #703041;color:#ff8b98}.tag.grey{border-color:#46464e;background:#222329;color:#dbdbe0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0 14px}.stat{background:#1c1d22;border:1px solid #33343c;border-radius:11px;padding:15px}.stat .title{color:var(--muted);font-size:11px;display:block;margin-bottom:7px}.stat b{font-size:17px;letter-spacing:-.025em;line-height:1.25;display:block}.info-line{border-top:1px solid var(--line);padding-top:17px;margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;color:var(--sub);font-size:12px}.info-line b{color:#fff}.detail-toggle{margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:12px 15px;background:#18191d;font-size:12px;color:var(--sub)} .detail-toggle summary{cursor:pointer;color:#fff;font-weight:750}.detail-body{padding-top:8px}.detail-body p{margin:5px 0}.detail-body ul{margin:8px 0 0;padding-left:19px}.detail-body li+li{margin-top:5px}
+.reason-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.reason-card{min-height:171px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;cursor:pointer;color:var(--text);transition:.16s}.reason-number{display:inline-grid;place-items:center;color:#ff7483;border:1px solid #703041;background:#26151a;border-radius:9px;width:32px;height:32px;font-weight:800;font-size:12px;margin-bottom:12px}.reason-card strong{font-size:16px;letter-spacing:-.02em;line-height:1.3}.reason-card small{color:var(--muted);margin-top:7px;font-size:12px;line-height:1.45}.reason-card .arrow{margin-top:auto;align-self:flex-end}
+.result-list{display:grid;gap:13px}.result{padding:21px;border:1px solid var(--line);border-radius:14px;background:#15161a}.result:first-child{border-color:#8e2c3c}.result-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.result h3{font-size:20px;letter-spacing:-.032em;margin:7px 0 2px}.result .result-label{font-size:11px;color:#ff7b8a;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.result .subtitle{font-size:12px;color:var(--sub)}.result-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 17px;margin-top:18px;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.result-meta span{font-size:11px;color:var(--muted);display:block}.result-meta b{font-size:12px;font-weight:700}.result .note{font-size:12px;color:#ffe0a0;margin:12px 0 0}.result .match{font-size:12px;color:#e9e9ed;margin:12px 0 0}.result .detail-toggle{margin-top:14px}
+.empty{background:#1b1718;border:1px dashed #7d2d3d;border-radius:14px;padding:24px;color:var(--sub)}.empty strong{color:#fff}.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:25px 0}.btn-red{color:#fff;background:var(--red);border:1px solid #ee4054;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;font-weight:770}.btn-red:hover{background:#be2439}.callout{margin-top:23px;color:var(--sub);background:#18191e;border:1px solid var(--line);border-left:3px solid var(--red);border-radius:10px;padding:14px 17px;font-size:12px}.muted{color:var(--muted)}.fine{color:var(--muted);font-size:11px;margin-top:28px}.footer{border-top:1px solid var(--line);color:var(--muted);padding:20px 0;font-size:11px}.footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+@media(max-width:820px){.company-grid,.reason-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.wrap{padding:0 17px}.bar-inner{height:68px}main{padding-top:30px;padding-bottom:50px}h1{font-size:34px}.company-grid,.reason-grid,.choice-grid{grid-template-columns:1fr}.company-card{min-height:132px}.reason-card{min-height:128px}.stats{gap:8px}.feature{padding:19px}.stat{padding:12px}.result-meta{grid-template-columns:1fr}.result{padding:17px}.actions .btn-simple{padding:8px 9px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style></head>
+<body><header class="bar"><div class="wrap bar-inner"><div class="brand">RUTA REPARTO<small>DERIVADOR · MADRID</small></div><div class="actions"><button class="btn-simple" type="button" id="backTop" hidden>← Volver</button><button class="btn-simple" type="button" data-action="home">Inicio</button></div></div></header>
+<main id="app" class="wrap" aria-live="polite"></main><footer class="footer"><div class="wrap"><span>RUTA REPARTO · MADRID</span><span>Herramienta interna de selección · Datos del Excel · Verificar vigencia</span></div></footer>
+<script>const CITY="Madrid";const OFFERS=[{"id":"at-cos","company":"AT OPERALIA","zone":"Coslada","role":"Reparto en furgoneta","schedule":"11:30–19:30","code":"DMZ2 / DMA6","hours":"38 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":2,"points":null,"age":21,"weekends":true,"tags":["diurno"],"mode":"van","contract":"Mensual renovable","details":["Disponibilidad de lunes a domingo, con 2 descansos rotativos."],"status":"informada","notes":""},{"id":"at-mos","company":"AT OPERALIA","zone":"Móstoles","role":"Reparto en furgoneta","schedule":"11:30–19:30","code":"DMA4","hours":"38 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":2,"points":null,"age":21,"weekends":true,"tags":["diurno"],"mode":"van","contract":"Mensual renovable","details":[],"status":"informada","notes":""},{"id":"nop-dmz2","company":"NOPAR","zone":"Coslada","role":"Reparto en furgoneta","schedule":"Inicio 10:00–11:00 · fin 18:00–19:00","code":"DMZ2","hours":"38 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":2,"points":8,"age":21,"weekends":true,"tags":["diurno"],"mode":"van","contract":"Fijo-discontinuo","details":["Incorporación prevista a los 15 días.","Furgoneta facilitada.","Formación online informativa de Amazon.","Entrega de listas: miércoles.","Confirmar transporte hasta nave; puede requerir coche."],"status":"informada","notes":""},{"id":"nop-dma4","company":"NOPAR","zone":"Móstoles","role":"Reparto en furgoneta","schedule":"Inicio 10:00–11:00 · fin 18:00–19:00","code":"DMA4","hours":"38 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":2,"points":8,"age":21,"weekends":true,"tags":["diurno"],"mode":"van","contract":"Fijo-discontinuo","details":["Incorporación prevista a los 15 días.","Furgoneta facilitada.","Formación online informativa de Amazon.","Entrega de listas: miércoles.","Confirmar transporte hasta nave; puede requerir coche."],"status":"informada","notes":""},{"id":"nop-mad4","company":"NOPAR","zone":"San Fernando","role":"Reparto en furgoneta","schedule":"Inicio 10:00–11:00 · fin 18:00–19:00","code":"MAD4","hours":"38 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":2,"points":8,"age":21,"weekends":true,"tags":["diurno"],"mode":"van","contract":"Fijo-discontinuo","details":["Incorporación prevista a los 15 días.","Furgoneta facilitada.","Formación online informativa de Amazon.","Entrega de listas: miércoles.","Confirmar transporte hasta nave; puede requerir coche."],"status":"informada","notes":""},{"id":"ins-get","company":"INSTAPACK","zone":"Getafe","role":"Reparto en furgoneta","schedule":"Por confirmar (jornada completa)","code":"DMZ4","hours":"38 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":1,"points":null,"age":18,"weekends":true,"tags":["completa"],"mode":"van","contract":"","details":["Entrevista presencial previa.","Formación online y presencial de 5–6 h, remunerada."],"status":"informada","notes":""},{"id":"ins-leg","company":"INSTAPACK","zone":"Leganés","role":"Reparto en furgoneta","schedule":"Por confirmar (jornada completa)","code":"VAD7","hours":"40 h/sem. (según ubicaciones)","salary":"Por confirmar","license":"B","minYears":1,"points":null,"age":18,"weekends":true,"tags":["completa"],"mode":"van","contract":"","details":[],"status":"verificar","notes":"Ubicación recogida en «Ubicaciones exactas», sin ficha de horario específica."},{"id":"ins-dma4-m","company":"INSTAPACK","zone":"Móstoles","role":"Reparto en furgoneta","schedule":"07:30/08:00–13:30","code":"DMA4","hours":"20 h/sem.","salary":"9,86 €/h bruto","license":"B","minYears":1,"points":null,"age":18,"weekends":true,"tags":["manana","parcial"],"mode":"van","contract":"Según empresa","details":["Formación online informativa de Amazon."],"status":"informada","notes":""},{"id":"ins-dma4-t","company":"INSTAPACK","zone":"Móstoles","role":"Reparto en furgoneta","schedule":"15:00–22:30","code":"DMA4","hours":"30 h/sem.","salary":"9,86 €/h bruto","license":"B","minYears":1,"points":null,"age":18,"weekends":true,"tags":["tarde","parcial"],"mode":"van","contract":"Según empresa","details":["Formación online informativa de Amazon."],"status":"informada","notes":""},{"id":"ins-mad4-m","company":"INSTAPACK","zone":"San Fernando","role":"Reparto en furgoneta","schedule":"07:30/08:00–13:30","code":"MAD4","hours":"20 h/sem.","salary":"9,86 €/h bruto","license":"B","minYears":1,"points":null,"age":18,"weekends":true,"tags":["manana","parcial"],"mode":"van","contract":"Según empresa","details":["Formación online informativa de Amazon."],"status":"informada","notes":""},{"id":"ins-mad4-t","company":"INSTAPACK","zone":"San Fernando","role":"Reparto en furgoneta","schedule":"15:00–22:30","code":"MAD4","hours":"30 h/sem.","salary":"9,86 €/h bruto","license":"B","minYears":1,"points":null,"age":18,"weekends":true,"tags":["tarde","parcial"],"mode":"van","contract":"Según empresa","details":["Formación online informativa de Amazon."],"status":"informada","notes":""},{"id":"ins-cos","company":"INSTAPACK","zone":"Coslada","role":"Reparto en furgoneta","schedule":"Por confirmar","code":"","hours":"Por confirmar","salary":"Por confirmar","license":"B","minYears":1,"points":null,"age":18,"weekends":true,"tags":[],"mode":"van","contract":"","details":[],"status":"verificar","notes":"Figura en Madrid General (Coslada/San Fernando) sin ficha de horarios por Coslada."},{"id":"del-mos","company":"DELCOM","zone":"Móstoles","role":"Reparto en furgoneta","schedule":"10:30–19:00","code":"DMA4","hours":"40 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":1,"points":8,"age":26,"weekends":true,"tags":["diurno"],"mode":"van","contract":"Mensual renovable","details":["Formación online de Amazon."],"status":"informada","notes":"La ficha indica «mayores de 25 años» para este centro."},{"id":"del-sf-m","company":"DELCOM","zone":"San Fernando","role":"Reparto en furgoneta","schedule":"06:15–14:15","code":"MAD4","hours":"40 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":1,"points":8,"age":null,"weekends":true,"tags":["manana"],"mode":"van","contract":"Mensual renovable","details":["Formación online de Amazon."],"status":"informada","notes":""},{"id":"del-sf-t","company":"DELCOM","zone":"San Fernando","role":"Reparto en furgoneta","schedule":"14:45–22:45","code":"MAD4","hours":"40 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":1,"points":8,"age":null,"weekends":true,"tags":["tarde"],"mode":"van","contract":"Mensual renovable","details":["Formación online de Amazon."],"status":"informada","notes":""},{"id":"win-cent","company":"WINIW","zone":"Madrid Centro","role":"Reparto en moto","schedule":"Flexible · a acordar","code":"VES7","hours":"18 h/sem.","salary":"9,86 €/h bruto · aprox. 710 €/mes","license":"AM/A/B","minYears":1,"points":null,"age":null,"weekends":true,"tags":["flexible","parcial"],"mode":"moto","contract":"","details":["Permiso AM, A o B válido según vehículo.","Disponibilidad de lunes a domingo con 2 descansos rotativos."],"status":"informada","notes":"No exige coche propio para Madrid Centro."},{"id":"win-sf","company":"WINIW","zone":"San Fernando","role":"Reparto en furgoneta","schedule":"Flexible · rutas de 5–6 h/día","code":"MAD4","hours":"27 h/sem.","salary":"9,86 €/h bruto · aprox. 1.064 €/mes","license":"B","minYears":1,"points":null,"age":null,"weekends":true,"tags":["flexible","parcial"],"mode":"van","contract":"","details":["Turno negociable con la empresa."],"status":"informada","notes":""},{"id":"win-vic-van","company":"WINIW","zone":"Vicálvaro","role":"Reparto en furgoneta","schedule":"10:30–fin de ruta (8 h aprox.)","code":"DMA3","hours":"36 h/sem.","salary":"9,86 €/h bruto · aprox. 1.420 €/mes","license":"B","minYears":1,"points":8,"age":null,"weekends":true,"tags":["diurno"],"mode":"van","contract":"Fijo-discontinuo / mensual renovable","details":[],"status":"informada","notes":"Horario de furgoneta según la segunda franja indicada en ficha WINIW."},{"id":"win-vic-walk","company":"WINIW","zone":"Vicálvaro","role":"Reparto andando","schedule":"11:00–19:00 aprox.","code":"DMA3","hours":"36 h/sem.","salary":"9,86 €/h bruto · aprox. 1.420 €/mes","license":"Por confirmar","minYears":null,"points":null,"age":null,"weekends":true,"tags":["diurno"],"mode":"walk","contract":"Fijo-discontinuo / mensual renovable","details":[],"status":"verificar","notes":"La ficha es mixta (furgoneta, andarín y Scoobic); confirmar si el puesto de andarín exige carné y qué salario/jornada le aplica."},{"id":"win-vic-sco","company":"WINIW","zone":"Vicálvaro","role":"Reparto con Scoobic eléctrico","schedule":"11:00–19:00 aprox.","code":"DMA3","hours":"36 h/sem.","salary":"9,86 €/h bruto · aprox. 1.420 €/mes","license":"Permiso aplicable: por confirmar","minYears":null,"points":null,"age":null,"weekends":true,"tags":["diurno"],"mode":"scoobic","contract":"","details":[],"status":"verificar","notes":"Confirmar el permiso concreto exigido para Scoobic."},{"id":"win-cos","company":"WINIW","zone":"Coslada","role":"Modalidad por confirmar","schedule":"Por confirmar","code":"","hours":"Por confirmar","salary":"Por confirmar","license":"Por confirmar","minYears":null,"points":null,"age":null,"weekends":true,"tags":[],"mode":"unknown","contract":"","details":[],"status":"verificar","notes":"Figura en «Madrid General» pero no tiene ficha de requisitos en WINIW."},{"id":"tw-cos","company":"DELIVERY TWINS","zone":"Coslada","role":"Reparto en furgoneta","schedule":"10:30–18:30","code":"DMZ2","hours":"38 h/sem.","salary":"9,86 €/h bruto · aprox. 1.560 €/mes","license":"B","minYears":1,"points":8,"age":null,"weekends":true,"tags":["diurno"],"mode":"van","contract":"","details":[],"status":"informada","notes":""},{"id":"ms-vic","company":"DELIVERY MAD SUR","zone":"Vicálvaro","role":"Reparto por confirmar","schedule":"Por confirmar","code":"","hours":"Por confirmar","salary":"Por confirmar","license":"Por confirmar","minYears":null,"points":null,"age":null,"weekends":true,"tags":[],"mode":"unknown","contract":"","details":[],"status":"proximamente","notes":"Figura expresamente «PRÓXIMAMENTE» en el Excel."},{"id":"sust-cos","company":"SUSTAINABLE DELIVERY","zone":"Coslada","role":"Reparto por confirmar","schedule":"Por confirmar","code":"DMA6","hours":"Por confirmar","salary":"Por confirmar","license":"Por confirmar","minYears":null,"points":null,"age":null,"weekends":true,"tags":[],"mode":"unknown","contract":"","details":[],"status":"proximamente","notes":"Figura expresamente «PRÓXIMAMENTE» en el Excel."},{"id":"zulu-cos","company":"ZULU LOGISTICS","zone":"Coslada","role":"Reparto por confirmar","schedule":"Por confirmar","code":"","hours":"Por confirmar","salary":"Por confirmar","license":"Por confirmar","minYears":null,"points":null,"age":null,"weekends":true,"tags":[],"mode":"unknown","contract":"","details":[],"status":"proximamente","notes":"Figura expresamente «PRÓXIMAMENTE» en el Excel."}];
+'use strict';
+const state={page:'home',company:null,job:null,reason:null,answer:null,from:null};
+const historyStack=[];
+const app=document.getElementById('app');
+const unique=(arr)=>[...new Set(arr)];
+const escapeHtml=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const E=escapeHtml;
+const companies=unique(OFFERS.map(o=>o.company));
+const zones=unique(OFFERS.map(o=>o.zone)).concat(CITY==='Madrid'?['Madrid norte (sin datos)']:[]);
+const active=(o)=>o.status!=='proximamente';
+function navigate(next,updates={},record=true){
+ if(record)historyStack.push({...state});
+ Object.assign(state,updates,{page:next});
+ render();window.scrollTo({top:0,behavior:'instant'});
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.55; -webkit-font-smoothing: antialiased;
+function back(){if(!historyStack.length)return home();Object.assign(state,historyStack.pop());render();window.scrollTo({top:0,behavior:'instant'});}
+function home(){historyStack.length=0;Object.assign(state,{page:'home',company:null,job:null,reason:null,answer:null});render();window.scrollTo({top:0,behavior:'instant'});}
+const byId=(id)=>OFFERS.find(o=>o.id===id);
+const chosen=()=>byId(state.job);
+const breadcrumb=(last)=>`<nav class="intro-nav" aria-label="Ruta"><button data-action="home">Inicio</button><span class="sep">/</span>${state.company?`<button data-action="company">${E(state.company)}</button><span class="sep">/</span>`:''}${state.job?`<button data-action="offer">${E(chosen().zone)}</button><span class="sep">/</span>`:''}<span aria-current="page">${E(last)}</span></nav>`;
+function status(o){return o.status==='proximamente'?'<span class="tag grey">Próximamente</span>':o.status==='verificar'?'<span class="tag grey">Datos por confirmar</span>':'<span class="tag">Ficha del Excel</span>'}
+function reqs(o){return [`${o.license==='B'?'Carné B':o.license==='AM/A/B'?'Permiso AM / A / B':o.license}`+(o.minYears?` · ${o.minYears<1?Math.round(o.minYears*12)+' meses':o.minYears+' año'+(o.minYears>1?'s':'')} de antigüedad`:''),o.points?`${o.points} puntos en el carné`:null,o.age?`Edad mínima indicada: ${o.age}`:null,o.weekends?'L–D · 2 descansos rotativos':null].filter(Boolean)}
+function detail(o){return `<details class="detail-toggle"><summary>Ver condiciones y observaciones</summary><div class="detail-body"><p><b>Requisitos:</b> ${E(reqs(o).join(' · ')||'Consultar con la empresa')}</p>${o.contract?`<p><b>Contrato:</b> ${E(o.contract)}</p>`:''}<ul>${(o.details||[]).map(x=>`<li>${E(x)}</li>`).join('')}${o.notes?`<li>${E(o.notes)}</li>`:''}</ul><p>Comprobar siempre requisitos, disponibilidad y vigencia antes de presentar al candidato.</p></div></details>`}
+const reasonOptions=[['horario','01','No tengo disponibilidad de ese horario','Buscar una franja u otra jornada.'],['carnet','02','No tengo carné de coche','Explorar moto o reparto andando.'],['zona','03','La zona me pilla lejos','Ver centros en otras zonas de '+CITY+'.']];
+function viewHome(){
+ const cards=companies.map(c=>{const offers=OFFERS.filter(o=>o.company===c);const ctr=unique(offers.map(o=>o.zone));return `<button class="company-card" data-action="select-company" data-value="${E(c)}"><span class="company-label">EMPRESA <span aria-hidden="true">↗</span></span><span class="company-name">${E(c)}</span><span class="company-sub">${E(ctr.join(' · '))}</span><span class="company-bottom"><span>${offers.length} ${offers.length===1?'oferta':'ofertas'} / ${ctr.length} ${ctr.length===1?'centro':'centros'}</span><span class="arrow">→</span></span></button>`}).join('');
+ return `<span class="kicker">DERIVADOR DE CANDIDATOS · ${E(CITY).toUpperCase()}</span><h1>Empieza por la <em>empresa.</em><br>Encuentra la alternativa.</h1><p class="lede">Selecciona la empresa para la que estás reclutando. Después elige el centro y, si la oferta no le encaja al candidato, deriva en dos pasos por horario, carné o zona.</p><h2 class="section-title">1 · Selecciona una empresa</h2><div class="company-grid">${cards}</div><p class="fine">${OFFERS.length} fichas registradas · Datos facilitados en los Excel · No se comprueba disponibilidad en tiempo real.</p>`;
 }
-button { font: inherit; color: inherit; }
-button:focus-visible { outline: 3px solid #ff4d5f; outline-offset: 3px; }
-h1,h2,h3,p { margin-top: 0; }
-.wrap { width: min(1100px, 100%); margin: 0 auto; padding: 0 28px; }
-.topbar { background: #101114; border-bottom: 1px solid var(--border); }
-.topbar-inner { min-height: 76px; display: flex; gap: 18px; align-items: center; justify-content: space-between; }
-.brand { display: flex; align-items: center; }
-.brand-text { font-size: 14px; font-weight: 750; letter-spacing: -.02em; }
-.brand-text small { display: block; margin-top: 1px; font-size: 10px; font-weight: 600; letter-spacing: .12em; color: var(--muted); }
-.top-actions { display: flex; gap: 9px; }
-.ghost { border: 1px solid var(--border); background: #15161a; border-radius: 9px; padding: 9px 13px; font-size: 12px; font-weight: 650; cursor: pointer; transition: background .18s,border-color .18s, color .18s; }
-.ghost:hover { background: #1d1f24; border-color: #5a1f28; color: #fff; }
-.ghost[hidden] { display: none; }
-.app { padding-top: 47px; padding-bottom: 74px; min-height: calc(100vh - 151px); }
-.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; color: #ff5c6d; }
-.dot { width: 6px; height: 6px; border-radius: 50%; background: #ff4d5f; }
-.intro h1 { margin: 15px 0 14px; max-width: 830px; font-size: clamp(32px, 4.6vw, 52px); font-weight: 750; line-height: 1.13; letter-spacing: -.05em; }
-.intro h1 .accent { color: #ff4d5f; }
-.intro p { max-width: 720px; font-size: 15px; color: var(--muted); margin-bottom: 29px; }
-.offer-feature { background: linear-gradient(180deg, #141519 0%, #101114 100%); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: 17px; padding: 28px 31px 27px; box-shadow: var(--shadow); }
-.offer-header { display: flex; align-items: flex-start; gap: 12px; justify-content: space-between; flex-wrap: wrap; }
-.offer-header h2 { font-size: clamp(23px, 3vw, 31px); letter-spacing: -.04em; font-weight: 750; margin: 6px 0 4px; }
-.offer-header p { font-size: 13px; color: var(--muted); margin: 0; }
-.priority { color: #fff; background: #7a1321; border: 1px solid #a62033; padding: 7px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
-.offer-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin: 26px 0 20px; }
-.stat { border: 1px solid var(--border); background: #17191d; border-radius: 11px; padding: 17px 15px; min-width: 0; }
-.stat-label { display: block; color: var(--muted); font-size: 11px; font-weight: 650; margin-bottom: 9px; }
-.stat-value { display: block; font-size: clamp(17px, 2.1vw, 23px); line-height: 1.15; letter-spacing: -.035em; font-weight: 750; }
-.stat-detail { display: block; color: var(--muted); font-size: 11px; margin-top: 8px; }
-.requirements { display: flex; gap: 8px; flex-wrap: wrap; }
-.req { padding: 8px 11px; background: #231217; border: 1px solid #5f1f29; border-radius: 7px; color: #fff; font-size: 12px; font-weight: 600; }
-.feature-foot { border-top: 1px solid #23252a; padding-top: 17px; margin: 21px 0 0; color: var(--muted); font-size: 12px; }
-.section-header { margin: 40px 0 17px; }
-.section-header h2 { font-size: clamp(21px, 3vw, 27px); letter-spacing: -.035em; font-weight: 730; margin-bottom: 5px; }
-.section-header p { margin: 0; color: var(--muted); font-size: 13px; }
-.reason-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
-.reason-card,.choice { text-align: left; cursor: pointer; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 13px; transition: border-color .16s,box-shadow .16s, transform .16s; }
-.reason-card:hover,.choice:hover { border-color: #a62033; box-shadow: 0 14px 28px rgba(0,0,0,.28); transform: translateY(-2px); }
-.reason-card { min-height: 200px; display: flex; flex-direction: column; align-items: flex-start; padding: 21px 21px 18px; }
-.reason-icon { color: #fff; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 9px; border: 1px solid #5f1f29; background: #231217; font-size: 13px; font-weight: 750; margin-bottom: 16px; }
-.reason-title { font-size: 16px; font-weight: 740; line-height: 1.32; letter-spacing: -.018em; }
-.reason-desc { font-size: 12px; color: var(--muted); margin-top: 7px; line-height: 1.55; }
-.reason-link { margin-top: auto; padding-top: 16px; font-size: 12px; font-weight: 750; color: var(--accent); }
-.footnote { font-size: 11px; color: var(--muted); margin-top: 23px; }
-.crumb { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; font-size: 12px; color: var(--muted); margin-bottom: 22px; }
-.crumb button { border: none; background: transparent; cursor: pointer; padding: 0; font-weight: 680; color: var(--accent); }
-.crumb .arrow { opacity: .55; }
-.question-shell { max-width: 950px; }
-.question-shell .intro h1 { font-size: clamp(29px,4vw,46px); }
-.subhead { max-width: 690px; color: var(--muted); font-size: 14px; margin-bottom: 25px; }
-.choice-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
-.choice { display: grid; grid-template-columns: 43px 1fr 20px; align-items: center; gap: 15px; padding: 19px; min-height: 112px; }
-.choice-icon { width: 43px; height: 43px; border-radius: 9px; background: var(--surface-soft); border: 1px solid var(--border); display: grid; place-items: center; font-size: 20px; color: var(--accent); }
-.choice-title { display: block; font-size: 15px; font-weight: 740; line-height: 1.3; }
-.choice-desc { display: block; color: var(--muted); font-size: 12px; margin-top: 5px; }
-.choice-arr { font-size: 20px; color: var(--accent); }
-.help-bar { background: #16181c; border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; margin-top: 19px; color: var(--muted); font-size: 12px; }
-.help-bar strong { color: var(--text); }
-.results-page { max-width: 990px; }
-.results-intro { margin-bottom: 23px; }
-.results-intro h1 { font-size: clamp(29px,4vw,44px); font-weight: 750; letter-spacing: -.045em; margin: 12px 0; }
-.results-intro h1 .accent { color: var(--accent); }
-.results-intro p { max-width: 760px; font-size: 13px; color: var(--muted); margin: 0 0 13px; }
-.count { display: inline-flex; padding: 6px 10px; color: #fff; background: #231217; border: 1px solid #5f1f29; border-radius: 7px; font-size: 12px; font-weight: 700; }
-.warning-banner { padding: 15px 17px; color: var(--warning); background: #201810; border: 1px solid #5f4521; border-radius: 10px; font-size: 13px; line-height: 1.55; margin-bottom: 18px; }
-.warning-banner strong { color: #ffe2a3; }
-.offer-list { display: flex; flex-direction: column; gap: 13px; }
-.job { background: #14161a; border: 1px solid var(--border); border-radius: 13px; padding: 23px 25px; box-shadow: 0 12px 24px rgba(0,0,0,.26); }
-.job:first-child { border-color: #a62033; }
-.job-upper { display: flex; align-items: flex-start; justify-content: space-between; gap: 13px; flex-wrap: wrap; }
-.job-label { display: inline-flex; color: var(--accent); text-transform: uppercase; letter-spacing: .095em; font-size: 10px; font-weight: 750; }
-.job h3 { font-size: 21px; font-weight: 750; letter-spacing: -.025em; margin: 7px 0 4px; }
-.job-location { font-size: 12px; color: var(--muted); }
-.job-time { padding: 9px 11px; border-radius: 8px; background: #231217; color: #fff; border: 1px solid #5f1f29; font-size: 13px; font-weight: 740; white-space: nowrap; }
-.pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 14px; }
-.pill { background: #17191d; border: 1px solid var(--border); color: #f4f4f5; padding: 6px 9px; border-radius: 7px; font-size: 11px; font-weight: 650; }
-.pill.action { background: #231217; border-color: #5f1f29; color: #fff; }
-.job-main { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px 18px; padding: 15px 0; border-top: 1px solid #23252a; border-bottom: 1px solid #23252a; }
-.job-main div { color: var(--muted); font-size: 12px; }
-.job-main b { color: #ffffff; font-weight: 750; }
-.job-note { font-size: 12px; color: var(--muted); margin: 14px 0 0; }
-.job-note.review { color: var(--warning); }
-.empty { border: 1px solid #5f4521; background: #1a140d; border-radius: 13px; padding: 25px; margin-bottom: 18px; }
-.empty h2 { font-size: 21px; font-weight: 750; margin-bottom: 8px; }
-.empty p { font-size: 13px; color: #e7d5b0; max-width: 750px; }
-.cta-row { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 23px; }
-.btn { border: 1px solid transparent; border-radius: 9px; font-size: 13px; font-weight: 700; padding: 11px 17px; cursor: pointer; transition: background .15s; }
-.btn-main { background: var(--accent); color: #fff; }
-.btn-main:hover { background: #c21f35; }
-.btn-outline { background: #15161a; border-color: var(--border); color: var(--text); }
-.btn-outline:hover { background: #1d1f24; }
-.more-count { opacity: .7; margin-left: 5px; }
-.disclaimer { font-size: 11px; color: var(--muted); line-height: 1.55; margin-top: 23px; }
-.bottom { background: #101114; border-top: 1px solid var(--border); padding: 21px 0 24px; color: var(--muted); font-size: 11px; }
-.bottom-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-[hidden] { display: none !important; }
-@media (max-width: 760px) {
-  .wrap { padding: 0 18px; }
-  .topbar-inner { min-height: 68px; }
-  .app { padding-top: 27px; padding-bottom: 45px; }
-  .intro h1 { font-size: 35px; }
-  .offer-feature { padding: 21px; }
-  .offer-stats { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; margin-top: 21px; }
-  .stat { padding: 14px 12px; }
-  .reason-grid { grid-template-columns: 1fr; gap: 9px; }
-  .reason-card { display: grid; align-items: center; grid-template-columns: 42px 1fr 18px; gap: 12px; min-height: auto; padding: 17px; }
-  .reason-icon { grid-row: 1/3; grid-column: 1; margin: 0; }
-  .reason-title { grid-row: 1; grid-column: 2; font-size: 15px; }
-  .reason-desc { grid-row: 2; grid-column: 2; margin: 0; }
-  .reason-link { grid-row: 1/3; grid-column: 3; font-size: 0; padding: 0; }
-  .reason-link:after { content: '→'; font-size: 22px; }
-  .choice-grid { grid-template-columns: 1fr; }
-  .choice { min-height: 98px; padding: 16px; }
-  .job-main { grid-template-columns: 1fr; }
-  .job { padding: 20px; }
-  .job h3 { font-size: 19px; }
+function viewCompany(){
+ const items=OFFERS.filter(o=>o.company===state.company);
+ const cards=items.map(o=>`<button class="choice" data-action="select-offer" data-value="${E(o.id)}"><span><strong>${E(o.zone)} · ${E(o.role)}</strong><small>${E(o.schedule)} · ${E(o.hours)}${o.status==='proximamente'?' · PRÓXIMAMENTE':''}</small></span><span class="arrow">→</span></button>`).join('');
+ return `${breadcrumb('Elegir centro')}<span class="kicker">PASO 2 · EMPRESA SELECCIONADA</span><h1>${E(state.company)}<br><em>Elige la oferta principal.</em></h1><p class="lede">Selecciona el centro o turno donde quieres presentar candidatos. Si no encaja, el derivador buscará otras opciones dentro de ${E(CITY)}.</p><div class="choice-grid">${cards}</div>`;
 }
-@media (max-width: 390px) {
-  .brand-text { font-size: 12px; }
-  .brand-text small { font-size: 9px; }
-  .top-actions { gap: 5px; }
-  .top-actions .ghost { padding: 8px 9px; font-size: 11px; }
-  .stat-value { font-size: 17px; }
-  .job-time { white-space: normal; }
+function feature(o){const warn=o.status!=='informada' ? `<div class="callout">${o.status==='proximamente'?'Esta empresa figura como «próximamente» en el Excel. No es una vacante confirmada.':'Parte de esta ficha necesita confirmación con la empresa.'}</div>`:'';
+return `<article class="feature"><div class="feature-top"><div><span class="kicker">OFERTA DE PARTIDA</span><h2>${E(o.company)} · ${E(o.zone)}</h2><p class="tiny">${E(o.role)} ${o.code?'· Centro '+E(o.code):''}</p></div>${status(o)}</div><div class="stats"><div class="stat"><span class="title">Horario</span><b>${E(o.schedule)}</b></div><div class="stat"><span class="title">Jornada</span><b>${E(o.hours)}</b></div><div class="stat"><span class="title">Salario</span><b>${E(o.salary)}</b></div><div class="stat"><span class="title">Carné</span><b>${E(o.license)}</b></div></div><div class="info-line"><span><b>Condiciones:</b> ${E(reqs(o).join(' · ')||'Pendientes de confirmar')}</span></div>${detail(o)}${warn}</article>`}
+function viewOffer(){const o=chosen();return `${breadcrumb('Oferta principal')}<span class="kicker">TU OFERTA ACTUAL · ${E(CITY).toUpperCase()}</span><h1>¿Encaja este <em>candidato?</em></h1><p class="lede">Comprueba las condiciones de la oferta. Si no puede trabajar aquí, indica el motivo y te mostraremos alternativas concretas.</p>${feature(o)}<h2 class="section-title">Si no encaja, ¿cuál es el motivo?</h2><div class="reason-grid">${reasonOptions.map(([id,no,title,sub])=>`<button class="reason-card" data-action="reason" data-value="${id}"><span class="reason-number">${no}</span><strong>${title}</strong><small>${E(sub)}</small><span class="arrow">→</span></button>`).join('')}</div><p class="fine">El botón «Volver» permite cambiar de centro; «Cambiar empresa» devuelve al inicio.</p>`}
+const hChoices=[['manana','Solo de mañana','Buscar turnos de mañana explícitos.'],['tarde','Solo de tarde','Buscar turnos de tarde explícitos.'],['parcial','Necesito jornada parcial','Priorizar contratos por debajo de la jornada completa.'],['flexible','Necesito un turno flexible','Solo ofertas donde se indica flexibilidad.'],['no-finde','No puedo trabajar fines de semana','Comprobar si hay alguna oferta compatible.']];
+const cChoices=[['moto','Tengo permiso de moto (AM / A), pero no B','Mostrar puestos de moto, si existen.'],['andarin','No tengo ningún permiso','Mostrar ofertas de andarín, sujetas a confirmar requisitos.'],['b-reciente','Tengo B pero con poca antigüedad','Mostrar ofertas que admiten un carné reciente.']];
+function answerChoices(){return state.reason==='horario'?hChoices:state.reason==='carnet'?cChoices:zones.map(z=>[z,z,z.includes('(sin datos)')?'No hay centros documentados en esa zona.':`Centros registrados en ${z}.`]);}
+function viewQuestion(){const data={horario:['Horario','¿Qué horario necesita el candidato?','Mostraré solo franjas publicadas expresamente como compatibles.'],carnet:['Carné','¿Qué permiso tiene realmente?','No consideraré reparto en moto si falta el permiso correspondiente.'],zona:['Zona','¿Qué zona le viene mejor?','Mostraremos ofertas de la zona elegida, sin inventar distancias.']}[state.reason];return `${breadcrumb(data[0])}<span class="kicker">DERIVACIÓN · ${E(data[0]).toUpperCase()}</span><h1>${E(data[1]).replace(/\?$/,'')}<em>?</em></h1><p class="lede">${E(data[2])}</p><div class="choice-grid">${answerChoices().map(([v,title,desc])=>`<button class="choice" data-action="answer" data-value="${E(v)}"><span><strong>${E(title)}</strong><small>${E(desc)}</small></span><span class="arrow">→</span></button>`).join('')}</div>`}
+function recommend(){const main=chosen();const input=state.answer;let scored=[];
+ for(const o of OFFERS){if(o.id===main.id||!active(o))continue;let score=0,why='';
+ if(state.reason==='zona'){
+   if(o.zone!==input)continue;score=200;why=`Centro situado en ${o.zone}.`;
+ }else if(state.reason==='horario'){
+   if(input==='no-finde')continue;
+   if(!o.tags.includes(input))continue;
+   score=180+(o.tags.includes('flexible')?4:0);why= input==='manana'?'Tiene turno de mañana indicado en el Excel.':input==='tarde'?'Tiene turno de tarde indicado en el Excel.':input==='parcial'?'La ficha incluye jornada parcial.':'La ficha permite negociar un horario flexible.';
+ }else if(state.reason==='carnet'){
+   if(input==='moto'){if(o.mode!=='moto')continue;score=220;why='Reparto en moto: requiere permiso AM / A / B y la antigüedad indicada.';}
+   if(input==='andarin'){if(o.mode!=='walk')continue;score=210;why='Modalidad andando; confirmar si admite candidatos sin carné.';}
+   if(input==='b-reciente'){if(o.mode!=='van'||o.minYears==null||o.minYears>0.25)continue;score=210;why='La ficha admite un carné B con al menos dos meses de antigüedad.';}
+ }
+ if(o.company===main.company)score+=7;
+ if(o.status==='verificar')score-=15;
+ scored.push({o,score,why});
+ }
+ scored.sort((a,b)=>b.score-a.score||a.o.company.localeCompare(b.o.company,'es')||a.o.zone.localeCompare(b.o.zone,'es'));
+ return scored;
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
-@media print {
-  body { background: #0b0b0c; }
-  .topbar, .cta-row, .crumb, .reason-grid, .bottom { display: none !important; }
-  .offer-feature, .job { box-shadow: none; border: 1px solid #ccc; }
-}
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <div class="brand"><div class="brand-text">RUTA REPARTO<small>DERIVADOR DE OFERTAS · MADRID</small></div></div>
-      <div class="top-actions"><button class="ghost" type="button" id="backTop" hidden>← Volver</button><button class="ghost" type="button" data-route="inicio">⌂ Inicio</button></div>
-    </div>
-  </header>
-  <main class="wrap app" id="app" aria-live="polite"></main>
-  <footer class="bottom"><div class="wrap bottom-inner"><span>Herramienta interna de orientación de candidatos</span><span>Fuente: «Empresas Última Milla.xlsx» · Condiciones y vacantes a confirmar</span></div></footer>
-  <script>
-  'use strict';
-  const reasons = {
-    horario:{title:'No me encaja el horario',label:'Horario',intro:'¿Qué disponibilidad tiene el candidato? Elige una opción y verás directamente las alternativas.',icon:'◷',choices:[
-      {id:'manana',icon:'☀',title:'Solo puedo de mañana',desc:'Turnos de mañana o parciales que terminan pronto'},
-      {id:'tarde',icon:'◕',title:'Solo puedo de tarde',desc:'Turnos que empiezan después del mediodía'},
-      {id:'parcial',icon:'◴',title:'Busco jornada parcial',desc:'18, 20, 27 o 30 horas semanales'},
-      {id:'flexible',icon:'↔',title:'Necesito horario flexible',desc:'Rutas cuyo turno se puede acordar'},
-      {id:'sinfinde',icon:'▦',title:'No puedo trabajar fines de semana',desc:'Revisar si existe alguna excepción de calendario'}
-    ]},
-    carnet:{title:'No tengo carné de coche',label:'Permiso',intro:'Para repartir en moto sí hace falta un permiso válido. Elige la situación del candidato.',icon:'▣',choices:[
-      {id:'am',icon:'◉',title:'Tengo permiso AM o A',desc:'Puedo conducir moto, pero no furgoneta'},
-      {id:'ninguno',icon:'♙',title:'No tengo ningún carné',desc:'Necesito una alternativa de reparto andando'},
-      {id:'andar',icon:'♙',title:'Prefiero repartir andando',desc:'Aunque tenga permiso, no quiero conducir'}
-    ]},
-    zona:{title:'Coslada me pilla lejos',label:'Zona',intro:'¿En qué parte de Madrid le interesa trabajar? Selecciona la zona para ver empresas y centros del Excel.',icon:'⌖',choices:[
-      {id:'centro',icon:'◎',title:'Madrid Centro',desc:'Zona Santa María de la Cabeza'},
-      {id:'norte',icon:'↑',title:'Zona Norte',desc:'Ver si existe una oferta en el norte'},
-      {id:'vicalvaro',icon:'↗',title:'Vicálvaro / Este',desc:'Centro DMA3 y alrededores del este'},
-      {id:'sanfernando',icon:'✦',title:'San Fernando / Corredor',desc:'Centro MAD4 y otras opciones del corredor'},
-      {id:'sur',icon:'↓',title:'Zona Sur',desc:'Getafe y Leganés'},
-      {id:'oeste',icon:'←',title:'Móstoles / Oeste',desc:'Centro DMA4 y alternativas en Móstoles'}
-    ]}
-  };
-  // Estas fichas proceden del Excel facilitado. La presencia de una ficha NO confirma vacantes abiertas.
-  const jobs={
-    'at-mostoles':{company:'AT OPERALIA',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'11:30–19:30',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'21 años',licence:'B, 2 años de antigüedad',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable'},
-    'delcom-manana':{company:'DELCOM',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'06:15–14:15',hours:'40 h/sem.',pay:'9,86 €/h bruto',age:'A confirmar para este centro',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable',note:'El Excel indica jornada de 40 h y un importe mensual aproximado que conviene verificar.'},
-    'delcom-tarde':{company:'DELCOM',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'14:45–22:45',hours:'40 h/sem.',pay:'9,86 €/h bruto',age:'A confirmar para este centro',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable'},
-    'delcom-mostoles':{company:'DELCOM',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'10:30–19:00',hours:'40 h/sem.',pay:'9,86 €/h bruto',age:'Mayor de 25 años',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos',contract:'Mensual renovable'},
-    'insta-san-manana':{company:'INSTAPACK',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'07:30/08:00–13:30',hours:'20 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
-    'insta-san-tarde':{company:'INSTAPACK',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'15:00–22:30',hours:'30 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
-    'insta-mostoles-manana':{company:'INSTAPACK',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'07:30/08:00–13:30',hours:'20 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
-    'insta-mostoles-tarde':{company:'INSTAPACK',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'15:00–22:30',hours:'30 h/sem.',pay:'9,86 €/h bruto · mensual según jornada',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Confirmar turno y asignación del centro antes de derivar.'},
-    'winiw-san':{company:'WINIW',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'Flexible · rutas 5–6 h',hours:'27 h/sem.',pay:'9,86 €/h bruto · aprox. 1.064 €/mes',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'El horario se puede hablar con la empresa; no está garantizado.'},
-    'winiw-centro':{company:'WINIW',place:'Madrid Centro',code:'VES7',mode:'Moto',time:'Flexible · a acordar',hours:'18 h/sem.',pay:'9,86 €/h bruto · aprox. 710 €/mes',age:'18 años (validar)',licence:'AM, A o B y 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'No precisa coche para llegar al centro de Madrid.'},
-    'winiw-andar':{company:'WINIW',place:'Vicálvaro',code:'DMA3',mode:'Andarín',time:'Aprox. 11:00–19:00',hours:'36 h/sem. (confirmar modalidad)',pay:'9,86 €/h bruto · aprox. 1.420 €/mes (confirmar)',age:'18 años (validar)',licence:'No aclarado para andarín',week:'L–D, 2 descansos rotativos',pending:true,note:'IMPORTANTE: la hoja incluye reparto andando, pero también 1 año de antigüedad del carné entre las condiciones generales. Confirmar si el puesto de andarín admite personas sin permiso y qué horario les corresponde.'},
-    'winiw-scoobic':{company:'WINIW',place:'Vicálvaro',code:'DMA3',mode:'Scoobic eléctrico',time:'10:30–fin de ruta (confirmar)',hours:'36 h/sem. (por confirmar)',pay:'9,86 €/h bruto · importe según modalidad',age:'18 años (validar)',licence:'Permiso exigido por confirmar',week:'L–D, 2 descansos rotativos',pending:true,note:'No proponer sin comprobar qué permiso y homologación exige este vehículo.'},
-    'winiw-vicalvaro-furgo':{company:'WINIW',place:'Vicálvaro',code:'DMA3',mode:'Furgoneta',time:'10:30–fin de ruta (aprox. 8 h)',hours:'36 h/sem.',pay:'9,86 €/h bruto · aprox. 1.420 €/mes',age:'18 años (validar)',licence:'B, 1 año y 8 puntos',week:'L–D, 2 descansos rotativos',note:'Horarios exactos a confirmar.'},
-    'insta-getafe':{company:'INSTAPACK',place:'Getafe',code:'DMZ4',mode:'Furgoneta',time:'Horario a confirmar',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',note:'Entrevista presencial y formación remunerada.'},
-    'insta-leganes':{company:'INSTAPACK',place:'Leganés',code:'VAD7',mode:'Furgoneta',time:'Horario a confirmar',hours:'40 h/sem. según ubicaciones',pay:'9,86 €/h bruto (centro por confirmar)',age:'18 años (validar)',licence:'B, 1 año de antigüedad',week:'L–D, 2 descansos rotativos',pending:true,note:'La hoja de ubicaciones señala 40 h; validar condiciones específicas del centro.'},
-    'nopar-san':{company:'NOPAR',place:'San Fernando de Henares',code:'MAD4',mode:'Furgoneta',time:'Desde 10:00/11:00 hasta 18:00/19:00',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'21 años',licence:'B, 2 años de antigüedad',week:'L–D, 2 descansos rotativos',note:'Incorporación estimada de 15 días; se recomienda comprobar cómo llegar al centro.'},
-    'nopar-mostoles':{company:'NOPAR',place:'Móstoles',code:'DMA4',mode:'Furgoneta',time:'Desde 10:00/11:00 hasta 18:00/19:00',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'21 años',licence:'B, 2 años de antigüedad',week:'L–D, 2 descansos rotativos',note:'Incorporación estimada de 15 días.'},
-    'delivery-coslada':{company:'DELIVERY TWINS',place:'Coslada',code:'DMZ2',mode:'Furgoneta',time:'10:30–18:30',hours:'38 h/sem.',pay:'9,86 €/h bruto · aprox. 1.560 €/mes',age:'18 años (validar)',licence:'B, 1 año de antigüedad y 8 puntos',week:'L–D, 2 descansos rotativos'}
-  };
-  // Las primeras tres ofertas son las más relevantes. El botón «ver todas» muestra el resto sin más preguntas.
-  const matches={
-    horario:{
-      manana:['delcom-manana','insta-san-manana','insta-mostoles-manana','winiw-san','winiw-centro'],
-      tarde:['delcom-tarde','insta-san-tarde','insta-mostoles-tarde','winiw-san','winiw-centro'],
-      parcial:['insta-san-manana','insta-san-tarde','winiw-san','winiw-centro','insta-mostoles-manana','insta-mostoles-tarde'],
-      flexible:['winiw-san','winiw-centro','insta-san-manana','insta-san-tarde'],
-      sinfinde:[]
-    },
-    carnet:{am:['winiw-centro','winiw-andar'],ninguno:['winiw-andar'],andar:['winiw-andar']},
-    zona:{
-      centro:['winiw-centro'],
-      norte:[],
-      vicalvaro:['winiw-andar','winiw-vicalvaro-furgo','winiw-scoobic'],
-      sanfernando:['delcom-manana','delcom-tarde','winiw-san','insta-san-manana','insta-san-tarde','nopar-san'],
-      sur:['insta-getafe','insta-leganes'],
-      oeste:['at-mostoles','insta-mostoles-manana','insta-mostoles-tarde','delcom-mostoles','nopar-mostoles']
-    }
-  };
-  const notices={
-    horario:{sinfinde:'Según el Excel, las ofertas recogidas requieren disponibilidad de lunes a domingo con dos descansos rotativos. No hay ninguna oferta confirmada con fines de semana libres. Solo se debe derivar si la empresa confirma expresamente una excepción.'},
-    carnet:{am:'La opción de moto exige permiso AM, A o B y 1 año de antigüedad. Si no llega al año, no queda acreditado el cumplimiento del requisito.',ninguno:'La única alternativa a pie recogida es WINIW Vicálvaro. El Excel no aclara si admite candidatos sin carné; hay que confirmarlo antes de derivar.',andar:'WINIW Vicálvaro incluye la modalidad andarín. Las condiciones específicas y el requisito de carné están pendientes de confirmación.'},
-    zona:{norte:'El Excel facilitado no contiene ofertas localizadas en la zona norte de Madrid. No se puede ofrecer una vacante allí con estos datos. Puedes valorar Madrid Centro u otras zonas solo si el candidato puede desplazarse.',centro:'Para Madrid Centro, el Excel recoge reparto en moto con WINIW. Es obligatorio comprobar el permiso AM, A o B.',vicalvaro:'En Vicálvaro aparecen tres modalidades. El permiso para Scoobic y las condiciones específicas de andarín necesitan verificación.'}
-  };
-  const titles={
-    horario:{manana:'Ofertas de mañana',tarde:'Ofertas de tarde',parcial:'Opciones de jornada parcial',flexible:'Horarios que pueden acordarse',sinfinde:'Fines de semana libres'},
-    carnet:{am:'Reparto en moto o andando',ninguno:'Reparto sin ningún carné',andar:'Opciones de reparto andando'},
-    zona:{centro:'Ofertas en Madrid Centro',norte:'Zona Norte de Madrid',vicalvaro:'Ofertas en Vicálvaro',sanfernando:'Ofertas en San Fernando',sur:'Ofertas en Zona Sur',oeste:'Ofertas en Móstoles'}
-  };
-  let expanded=false;
-  const app=document.getElementById('app');
-  function go(route){expanded=false;const next='#'+route;if(location.hash===next)render();else location.hash=next;window.scrollTo({top:0,behavior:'instant'});}
-  function route(){const parts=decodeURIComponent(location.hash.slice(1)).split('/');const reason=parts[0],choice=parts[1];if(reasons[reason]){if(choice&&matches[reason]&&Object.prototype.hasOwnProperty.call(matches[reason],choice))return{type:'results',reason,choice};return{type:'question',reason};}return{type:'home'};}
-  function back(){const r=route();if(r.type==='results')go(r.reason);else go('inicio');}
-  function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-  function renderHome(){return `<section class="intro"><span class="eyebrow"><span class="dot"></span> OFERTA DE PARTIDA</span><h1>Primero, <span class="accent">AT Operalia Coslada.</span></h1><p>Esta es la oferta prioritaria. Si el candidato no puede aceptarla, elige el motivo y encuentra alternativas en solo dos clics.</p></section>
-    <section class="offer-feature" aria-labelledby="principal"><div class="offer-header"><div><div class="eyebrow">FURGONETA · COSLADA</div><h2 id="principal">AT Operalia · Coslada</h2><p>Reparto de paquetería · Centros DMZ2 / DMA6</p></div><span class="priority">OFERTA PRIORITARIA</span></div>
-    <div class="offer-stats"><div class="stat"><span class="stat-label">◷ Horario</span><span class="stat-value">11:30–19:30</span><span class="stat-detail">Turno habitual indicado</span></div><div class="stat"><span class="stat-label">▦ Jornada</span><span class="stat-value">38 h</span><span class="stat-detail">Semanales · lunes a domingo</span></div><div class="stat"><span class="stat-label">€ Salario bruto</span><span class="stat-value">≈ 1.560 €</span><span class="stat-detail">Mensual · 9,86 €/hora</span></div><div class="stat"><span class="stat-label">▧ Contrato</span><span class="stat-value">Mensual</span><span class="stat-detail">Renovable</span></div></div>
-    <div class="requirements"><span class="req">✓ Mínimo 21 años</span><span class="req">✓ Carné B · 2 años de antigüedad</span><span class="req">✓ 2 descansos rotativos</span><span class="req">✓ Disponibilidad de lunes a domingo</span></div><p class="feature-foot">Si cumple las condiciones, AT Operalia Coslada es la primera derivación. Antes de enviar el perfil, confirmar documentación y vacantes disponibles.</p></section>
-    <section><div class="section-header"><h2>¿Por qué no puede encajar en Coslada?</h2><p>Selecciona uno de estos <strong>3 motivos</strong>. No hace falta completar un formulario largo.</p></div>
-    <div class="reason-grid"><button class="reason-card" data-route="horario"><span class="reason-icon" aria-hidden="true">01</span><span class="reason-title">1. No tengo disponibilidad de ese horario</span><span class="reason-desc">Prefiero mañana, tarde, parcial o flexible</span><span class="reason-link">Ver horarios →</span></button><button class="reason-card" data-route="carnet"><span class="reason-icon" aria-hidden="true">02</span><span class="reason-title">2. No tengo carné de coche</span><span class="reason-desc">Alternativas de moto o reparto andando</span><span class="reason-link">Ver modalidades →</span></button><button class="reason-card" data-route="zona"><span class="reason-icon" aria-hidden="true">03</span><span class="reason-title">3. La zona me pilla lejos</span><span class="reason-desc">Madrid Centro, Norte, Vicálvaro, Sur, Oeste...</span><span class="reason-link">Elegir zona →</span></button></div></section>
-    <p class="footnote">No se comprueba disponibilidad en tiempo real. Datos proporcionados por la empresa; validar requisitos y asignación de centro antes de derivar.</p>`;}
-  function renderQuestion(key){const r=reasons[key];return `<section class="question-shell"><div class="crumb"><button data-route="inicio">Inicio</button><span class="arrow">›</span>${escapeHtml(r.label)}</div><div class="intro"><span class="eyebrow"><span class="dot"></span> UN PASO MÁS · RESULTADO DIRECTO</span><h1>${escapeHtml(r.title)}<span class="accent">.</span></h1><p class="subhead">${escapeHtml(r.intro)}</p></div><div class="choice-grid">${r.choices.map(c=>`<button class="choice" data-route="${key}/${c.id}"><span class="choice-icon" aria-hidden="true">${c.icon}</span><span><strong class="choice-title">${escapeHtml(c.title)}</strong><span class="choice-desc">${escapeHtml(c.desc)}</span></span><span class="choice-arr" aria-hidden="true">→</span></button>`).join('')}</div><div class="help-bar"><strong>Sin más pasos:</strong> pulsa una opción y verás las ofertas concretas, sus requisitos y sus horarios. Si no encaja, usa «← Volver» para cambiar de respuesta.</div><div class="cta-row"><button class="btn btn-outline" data-route="inicio">← Volver a AT Operalia Coslada</button></div></section>`;}
-  function renderCard(id,index,key,choice){const j=jobs[id];if(!j)return'';const label=index===0&&!j.pending?'Opción destacada':'Alternativa '+(index+1);const flag=j.pending?'<span class="pill" style="color:#ffdda4;border-color:#876941">⚠ Condiciones por confirmar</span>':'';return `<article class="job"><div class="job-upper"><div><div class="job-label">${escapeHtml(label)}${j.pending?' · REVISAR ANTES DE DERIVAR':''}</div><h3>${escapeHtml(j.company)}</h3><div class="job-location">⌖ ${escapeHtml(j.place)} · Centro ${escapeHtml(j.code)}</div></div><div class="job-time">◷ ${escapeHtml(j.time)}</div></div><div class="pill-row"><span class="pill action">${escapeHtml(j.mode)}</span><span class="pill">${escapeHtml(j.hours)}</span>${flag}</div><div class="job-main"><div><b>€ Retribución:</b> ${escapeHtml(j.pay)}</div><div><b>▦ Disponibilidad:</b> ${escapeHtml(j.week)}</div><div><b>▣ Carné:</b> ${escapeHtml(j.licence)}</div><div><b>♙ Edad mínima:</b> ${escapeHtml(j.age)}</div>${j.contract?`<div><b>⌁ Contrato:</b> ${escapeHtml(j.contract)}</div>`:''}</div>${j.note?`<p class="job-note ${j.pending?'review':''}">${escapeHtml(j.note)}</p>`:''}</article>`;}
-  function renderResults(key,choice){const list=matches[key][choice]||[];const n=notices[key]?.[choice];const title=titles[key][choice];const shown=expanded?list:list.slice(0,3);const empty=list.length===0;const noteRegion=empty?`<div class="empty"><h2>Sin coincidencias confirmadas en el Excel</h2><p>${escapeHtml(n||'No se han localizado ofertas que cumplan este criterio con la información proporcionada.')}</p>${key==='zona'&&choice==='norte'?'<button class="btn btn-main" data-route="zona/centro">Ver alternativa: Madrid Centro →</button>':''}</div>`:'';const banner=n&&!empty?`<div class="warning-banner"><strong>Importante antes de derivar:</strong> ${escapeHtml(n)}</div>`:'';
-    return `<section class="results-page"><div class="crumb"><button data-route="inicio">AT Operalia Coslada</button><span class="arrow">›</span><button data-route="${key}">${escapeHtml(reasons[key].label)}</button><span class="arrow">›</span> Resultado</div><div class="results-intro"><span class="eyebrow"><span class="dot"></span> ALTERNATIVAS DE DERIVACIÓN</span><h1>${escapeHtml(title)}<span class="accent">.</span></h1><p>${key==='horario'?'Opciones que pueden encajar con la disponibilidad indicada. Comprueba el carné, edad, zona y días disponibles antes de derivar.':key==='carnet'?'Solo se muestran modalidades acordes con la respuesta, sin proponer furgoneta a quien no tiene permiso B.':'Ofertas asociadas con esa zona en el Excel. Confirma el transporte al centro y los requisitos del puesto.'}</p>${!empty?`<span class="count">${list.length} ${list.length===1?'alternativa localizada':'alternativas localizadas'}</span>`:''}</div>${banner}${noteRegion}${!empty?`<div class="offer-list">${shown.map((id,i)=>renderCard(id,i,key,choice)).join('')}</div>`:''}${!empty&&!expanded&&list.length>3?`<div class="cta-row"><button class="btn btn-outline" id="showMore">Ver todas las alternativas <span class="more-count">+${list.length-3}</span> ↓</button></div>`:''}<div class="cta-row"><button class="btn btn-main" data-route="${key}">← Cambiar selección</button><button class="btn btn-outline" data-route="inicio">⌂ Volver a AT Operalia</button></div><p class="disclaimer">Orientación basada en el Excel original. No se valida disponibilidad actual, documentación ni contratación. Donde el Excel mezcla condiciones o no concreta el puesto, la ficha avisa de que debe confirmarse.</p></section>`;
-  }
-  function render(){const r=route();document.getElementById('backTop').hidden=r.type==='home';if(r.type==='home')app.innerHTML=renderHome();else if(r.type==='question')app.innerHTML=renderQuestion(r.reason);else app.innerHTML=renderResults(r.reason,r.choice);document.title=(r.type==='home'?'AT Operalia Coslada':r.type==='question'?reasons[r.reason].title:titles[r.reason][r.choice])+' · Derivador';}
-  document.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;if(btn.id==='backTop'){back();return}if(btn.id==='showMore'){expanded=true;render();return}if(btn.dataset.route)go(btn.dataset.route);});
-  window.addEventListener('hashchange',()=>{expanded=false;render();window.scrollTo({top:0,behavior:'instant'});});
-  render();
-  </script>
-</body>
-</html>
+const answerTitle=()=> (answerChoices().find(a=>a[0]===state.answer)||[])[1]||state.answer;
+function resultCard(row,i){const o=row.o;return `<article class="result"><div class="result-top"><div><span class="result-label">${i===0?'PRIMERA ALTERNATIVA':'ALTERNATIVA '+(i+1)}</span><h3>${E(o.company)} · ${E(o.zone)}</h3><div class="subtitle">${E(o.role)} ${o.code?'· Centro '+E(o.code):''}</div></div>${status(o)}</div><p class="match">✓ ${E(row.why)}</p><div class="result-meta"><div><span>Horario</span><b>${E(o.schedule)}</b></div><div><span>Jornada</span><b>${E(o.hours)}</b></div><div><span>Salario</span><b>${E(o.salary)}</b></div><div><span>Permiso</span><b>${E(reqs(o)[0]||o.license)}</b></div></div>${o.status==='verificar'?'<p class="note">⚠ Esta oferta requiere confirmar algunas condiciones.</p>':''}${detail(o)}</article>`}
+function viewResults(){const matches=recommend();const count=matches.length;let alert='';
+ if(state.reason==='carnet'&&state.answer==='moto'&&count===0)alert='No hay ofertas de moto documentadas en este Excel para esta ciudad.';
+ else if(state.reason==='horario'&&state.answer==='no-finde')alert='En las fichas disponibles se pide disponibilidad de lunes a domingo con descansos rotativos. No hay alternativa confirmada sin fines de semana.';
+ else if(state.reason==='carnet'&&state.answer==='andarin'&&count>0)alert='El reparto andando existe en las fichas, pero el documento mezcla sus requisitos con los de furgoneta. Confirma específicamente si permite trabajar sin carné.';
+ else if(count===0)alert='No hay una alternativa que cumpla ese criterio en los datos disponibles para esta ciudad.';
+ return `${breadcrumb('Alternativas')}<span class="kicker">RESULTADO PARA ${E(CITY).toUpperCase()}</span><h1>${count?`${count} ${count===1?'alternativa':'alternativas'} para <em>derivar.</em>`:'No hay una opción <em>confirmada.</em>'}</h1><p class="lede">Oferta de partida: <strong style="color:#fff">${E(chosen().company)} · ${E(chosen().zone)}</strong> · Motivo: <strong style="color:#fff">${E(answerTitle())}</strong>.</p>${alert?`<div class="callout">${E(alert)}</div>`:''}${count?`<div class="result-list">${matches.map(resultCard).join('')}</div>`:`<div class="empty"><strong>Sin coincidencias comprobadas.</strong><p>Prueba otro turno, zona o modalidad. No se mostrarán ofertas incompatibles solo para completar resultados.</p></div>`}<div class="toolbar"><button class="btn-red" data-action="back">← Cambiar respuesta</button><button class="btn-simple" data-action="offer">Volver a la oferta</button><button class="btn-simple" data-action="home">Cambiar empresa</button></div><p class="fine">Guía de orientación con datos facilitados en los Excel. Es necesario verificar disponibilidad, documentación y requisitos antes de derivar. No confirma vacantes en tiempo real.</p>`}
+function render(){app.innerHTML=state.page==='home'?viewHome():state.page==='company'?viewCompany():state.page==='offer'?viewOffer():state.page==='question'?viewQuestion():viewResults();document.getElementById('backTop').hidden=historyStack.length===0;document.title=(state.page==='home'?CITY:(state.company||CITY))+' · Derivador de reparto';}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;const a=b.dataset.action,val=b.dataset.value;
+ if(a==='home')return home();if(a==='back')return back();
+ if(a==='company')return navigate('company',{job:null,reason:null,answer:null});
+ if(a==='offer')return navigate('offer',{reason:null,answer:null});
+ if(a==='select-company'){const list=OFFERS.filter(o=>o.company===val);return list.length===1?navigate('offer',{company:val,job:list[0].id,reason:null,answer:null}):navigate('company',{company:val,job:null,reason:null,answer:null});}
+ if(a==='select-offer')return navigate('offer',{job:val,reason:null,answer:null});
+ if(a==='reason')return navigate('question',{reason:val,answer:null});
+ if(a==='answer')return navigate('results',{answer:val});
+});
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&historyStack.length)back()});
+document.getElementById('backTop').addEventListener('click',back);
+render();
+</script></body></html>
